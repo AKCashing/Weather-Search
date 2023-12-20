@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
-</head>
-<body>
-    <header class="header">
-        <h1>Weather Dashboard</h1>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS Styling linking -->
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <!-- Document Name -->
+        <title>Document</title>
+    </head>
 
-    <div class="search-bar">
-        <label>Search for a City:</label>
-        <input id="user-input" type="text" placeholder="San Diego"></input>
-        <button id="search-btn" class="btn">Search</button>
-        <button id="city-btn" class="btn">Placeholder</button>
-    </div>
-</body>
-<script src="./assets/js/style.js"></script>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <h1>Weather Dashboard</h1>
+        </header>
+        <!-- Main Body -->
+        <div class="main-body">
+            <!-- Search Menu -->
+            <div id="search-menu">
+                <!-- Title -->
+                <label id="search-title">Search for a City:</label>
+                <!-- User Input Field -->
+                <input id="user-input" type="text" placeholder="Andover"></input>
+                <!-- Search Button -->
+                <button id="search-btn" class="btn">Search</button>
+                <!-- Line -->
+                <hr class="line">
+                <!-- City Button -->
+                <!-- <button id="city-btn" class="btn">Placeholder</button> -->
+            </div>
+            <!-- Weather Dashboard -->
+            <div class="weather-dashboard">
+                <!-- City Name -->
+                <label id="city-name"></label>
+                <!-- Temperature -->
+                <label id="temperature"></label>
+                <!-- Wind -->
+                <label id="wind"></label>
+                <!-- Humidity -->
+                <label id="humidity"></label>
+            </div>
+        </div>
+    </body>
+    <script src="./assets/js/style.js"></script>
 </html>
