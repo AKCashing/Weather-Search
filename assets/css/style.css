@@ -108,11 +108,23 @@ input {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-/* CITY NAME Display, and Styling */
-#city-name {
+/* CITY HEADER BOX Display */
+#city-header {
+    display: flex;
     margin-bottom: 10px;
+}
+
+/* CITY NAME Styling */
+#city-name {
     font-weight: bold;
     font-size: 40px;
+}
+
+/* WEATHER IMG Display, and Size */
+#weather-img {
+    display: none;
+    width: 49px;
+    height: 49px;
 }
 
 /* TEMPERATURE Display and Styling */

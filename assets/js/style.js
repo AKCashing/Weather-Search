@@ -61,12 +61,21 @@ searchButtonEl.addEventListener('click', function(event) {
                 // Attach cityButtonEl into the document body
                 searchMenuEl.appendChild(cityButtonEl);
                 // Display the Users Input
-                cityButtonEl.innerHTML = userInputValue;
+                cityButtonEl.innerHTML = data.name;
+
+                // Grab the Weather Img element ID
+                var weatherImgEl = document.getElementById('weather-img');
+                // Save the city's current weather icon code
+                var iconCode = data.weather[0].icon;
+                // Create the img url
+                var iconUrl = 'https://openweathermap.org/img/wn/'+ iconCode +'@2x.png';
 
                 // Clear the Input Field
                 userInputEl.value = '';
                 // Clear the City Name Field
                 cityNameEl.innerHTML = '';
+                // Clear the Weather Img
+                weatherImgEl.innerHTML = '';
                 // Clear the Temperature Field
                 temperatureEl.innerHTML = '';
                 // Clear the Wind Field
@@ -74,8 +83,14 @@ searchButtonEl.addEventListener('click', function(event) {
                 // Clear the Humidity Field
                 humidityEl.innerHTML = '';
 
-                // Insert NEW City Name and Date
-                cityNameEl.innerHTML = data.name + ' (' + month + '/' + day + '/' + year + ')';
+                // Insert NEW City Name and Date !!! data.weather[0].icon
+                cityNameEl.innerHTML = data.name + ' (' + month + '/' + day + '/' + year + ') ';
+
+                // Add the src attribute to Weather Img
+                weatherImgEl.setAttribute('src', iconUrl);
+                // Display the Img
+                weatherImgEl.style.display = 'flex';
+
                 // Insert NEW Temperature data
                 temperatureEl.innerHTML = 'Temp: ' + temperatureEl.textContent + data.main.temp + '°F';
                 // Insert NEW Wind data
@@ -97,10 +112,17 @@ searchButtonEl.addEventListener('click', function(event) {
                         // LOG Data to console
                         console.log(data);
 
+                        // Save the city's current weather icon code
+                        iconCode = data.weather[0].icon;
+                        // Create the img url
+                        iconUrl = 'https://openweathermap.org/img/wn/'+ iconCode +'@2x.png';
+
                         // Clear the Input Field
                         userInputEl.value = '';
                         // Clear the City Name Field
                         cityNameEl.innerHTML = '';
+                        // Clear the Weather Img
+                        weatherImgEl.innerHTML = '';
                         // Clear the Temperature Field
                         temperatureEl.innerHTML = '';
                         // Clear the Wind Field
@@ -110,6 +132,10 @@ searchButtonEl.addEventListener('click', function(event) {
 
                         // Insert NEW City Name and Date
                         cityNameEl.innerHTML = data.name + ' (' + month + '/' + day + '/' + year + ')';
+
+                        // Add the src attribute to Weather Img
+                        weatherImgEl.setAttribute('src', iconUrl);
+
                         // Insert NEW Temperature data
                         temperatureEl.innerHTML = 'Temp: ' + temperatureEl.textContent + data.main.temp + '°F';
                         // Insert NEW Wind data
