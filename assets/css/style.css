@@ -97,7 +97,7 @@ input {
 
 /* WEATHER DASHBOARD Display, Size, and Styling */
 .weather-dashboard {
-    width: 400px;
+    width: 500px;
     height: 175px;
     display: flex;
     flex-direction: column;
