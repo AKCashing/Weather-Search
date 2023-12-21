@@ -39,7 +39,7 @@ searchButtonEl.addEventListener('click', function(event) {
         })
         .then(function(data){
             // LOG Data to console
-            console.log(data);
+            // console.log(data);
 
             // IF the Input Field is BLANK or CITY NOT FOUND
             if (data.cod === '400' || data.cod === '404')
@@ -117,11 +117,7 @@ searchButtonEl.addEventListener('click', function(event) {
                 })
                 .then(function(data){
                     // LOG Data to console
-                    console.log(data);
-
-                    // Grab
-                    var forecastCardList = document.getElementById('forecast-card-list');
-                    // forecastCardListEl.removeAttribute
+                    // console.log(data);
 
                     // Grab the Forecast Dasboard element ID
                     var forecastTitleEl = document.getElementById('forecast-title');
@@ -129,39 +125,44 @@ searchButtonEl.addEventListener('click', function(event) {
                     forecastTitleEl.style.display = 'inline-block';
                     // Grab the Forecast Card List element ID
                     var forecastCardListEl = document.getElementById('forecast-card-list');
+                    // While a child element is inside this div, remove it
+                    while (forecastCardListEl.lastElementChild) {
+                        forecastCardListEl.removeChild(forecastCardListEl.lastElementChild);
+                    }
 
                     // Assign the Current Day into a Forecasted Day var
                     var forecastedDay = day;
 
+                    // Create a Forecast Card for the next 5 days
                     for (var i = 0; i < 5; i++)
                     {
                         // Increase the Forecasted Day by 1 each loop
                         forecastedDay++;
-
+                        // Create and add the card to the list
                         var forecastCardEl = document.createElement('div');
                         forecastCardEl.setAttribute('id', 'forecast-card');
                         forecastCardListEl.appendChild(forecastCardEl);
-
+                        // Add the Date
                         var forecastDateEl = document.createElement('label');
                         forecastDateEl.setAttribute('id', 'forecast-date');
                         forecastCardEl.appendChild(forecastDateEl);
                         forecastDateEl.innerHTML = ' (' + month + '/' + forecastedDay + '/' + year + ') ';
-
+                        // Add the Image
                         var forecastImgEl = document.createElement('img');
                         forecastImgEl.setAttribute('id', 'forecast-img');
                         forecastCardEl.appendChild(forecastImgEl);
                         forecastImgEl.setAttribute('src', iconUrl);
-
+                        // Add the Temperature
                         var forecastTemperatureEl = document.createElement('label');
                         forecastTemperatureEl.setAttribute('id', 'forecast-temperature');
                         forecastCardEl.appendChild(forecastTemperatureEl);
                         forecastTemperatureEl.innerHTML = 'Temp: ' + data.list[i*8].main.temp + '°F';
-
+                        // Add the Wind
                         var forecastWindEl = document.createElement('label');
                         forecastWindEl.setAttribute('id', 'forecast-wind');
                         forecastCardEl.appendChild(forecastWindEl);
                         forecastWindEl.innerHTML = 'Wind: ' + data.list[i*8].wind.speed + ' MPH';
-
+                        // Add the Humidity
                         var forecastHumidityEl = document.createElement('label');
                         forecastHumidityEl.setAttribute('id', 'forecast-humidity');
                         forecastCardEl.appendChild(forecastHumidityEl);
@@ -181,10 +182,10 @@ searchButtonEl.addEventListener('click', function(event) {
                     })
                     .then(function(data){
                         // LOG Data to console
-                        console.log(data);
+                        // console.log(data);
 
                         // Save the city's current weather icon code
-                        iconCode = data.list[0].weather[0].icon;
+                        iconCode = data.weather[0].icon;
                         // Create the img url
                         iconUrl = 'https://openweathermap.org/img/wn/'+ iconCode +'@2x.png';
 
@@ -202,18 +203,77 @@ searchButtonEl.addEventListener('click', function(event) {
                         humidityEl.innerHTML = '';
 
                         // Insert NEW City Name and Date
-                        cityNameEl.innerHTML = data.city.name + ' (' + month + '/' + day + '/' + year + ')';
+                        cityNameEl.innerHTML = data.name + ' (' + month + '/' + day + '/' + year + ')';
 
                         // Add the src attribute to Weather Img
                         weatherImgEl.setAttribute('src', iconUrl);
 
                         // Insert NEW Temperature data
-                        temperatureEl.innerHTML = 'Temp: ' + temperatureEl.textContent + data.list[0].main.temp + '°F';
+                        temperatureEl.innerHTML = 'Temp: ' + data.main.temp + '°F';
                         // Insert NEW Wind data
-                        windEl.innerHTML = 'Wind: ' + windEl.textContent + data.list[0].wind.speed + ' MPH';
+                        windEl.innerHTML = 'Wind: ' + data.wind.speed + ' MPH';
                         // Insert NEW Humidity data
-                        humidityEl.innerHTML = 'Humidity: ' + humidityEl.textContent + data.list[0].main.humidity +' %';
+                        humidityEl.innerHTML = 'Humidity: ' + data.main.humidity +' %';
                     });
+                // FETCH the queryForecastURL
+                fetch(queryForecastURL)
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function(data){
+                    // LOG Data to console
+                    // console.log(data);
+
+                    // Grab the Forecast Dasboard element ID
+                    var forecastTitleEl = document.getElementById('forecast-title');
+                    // Display the Forecast Dashboard
+                    forecastTitleEl.style.display = 'inline-block';
+                    // Grab the Forecast Card List element ID
+                    var forecastCardListEl = document.getElementById('forecast-card-list');
+                    // While a child element is inside this div, remove it
+                    while (forecastCardListEl.lastElementChild) {
+                        forecastCardListEl.removeChild(forecastCardListEl.lastElementChild);
+                    }
+
+                    // Assign the Current Day into a Forecasted Day var
+                    var forecastedDay = day;
+
+                    // Create a Forecast Card for the next 5 days
+                    for (var i = 0; i < 5; i++)
+                    {
+                        // Increase the Forecasted Day by 1 each loop
+                        forecastedDay++;
+                        // Create and add the card to the list
+                        var forecastCardEl = document.createElement('div');
+                        forecastCardEl.setAttribute('id', 'forecast-card');
+                        forecastCardListEl.appendChild(forecastCardEl);
+                        // Add the Date
+                        var forecastDateEl = document.createElement('label');
+                        forecastDateEl.setAttribute('id', 'forecast-date');
+                        forecastCardEl.appendChild(forecastDateEl);
+                        forecastDateEl.innerHTML = ' (' + month + '/' + forecastedDay + '/' + year + ') ';
+                        // Add the Image
+                        var forecastImgEl = document.createElement('img');
+                        forecastImgEl.setAttribute('id', 'forecast-img');
+                        forecastCardEl.appendChild(forecastImgEl);
+                        forecastImgEl.setAttribute('src', iconUrl);
+                        // Add the Temperature
+                        var forecastTemperatureEl = document.createElement('label');
+                        forecastTemperatureEl.setAttribute('id', 'forecast-temperature');
+                        forecastCardEl.appendChild(forecastTemperatureEl);
+                        forecastTemperatureEl.innerHTML = 'Temp: ' + data.list[i*8].main.temp + '°F';
+                        // Add the Wind
+                        var forecastWindEl = document.createElement('label');
+                        forecastWindEl.setAttribute('id', 'forecast-wind');
+                        forecastCardEl.appendChild(forecastWindEl);
+                        forecastWindEl.innerHTML = 'Wind: ' + data.list[i*8].wind.speed + ' MPH';
+                        // Add the Humidity
+                        var forecastHumidityEl = document.createElement('label');
+                        forecastHumidityEl.setAttribute('id', 'forecast-humidity');
+                        forecastCardEl.appendChild(forecastHumidityEl);
+                        forecastHumidityEl.innerHTML = 'Humidity: ' + data.list[i*8].main.humidity +' %';
+                    }
+                });
             })
         });
     })
