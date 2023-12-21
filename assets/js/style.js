@@ -29,9 +29,9 @@ searchButtonEl.addEventListener('click', function(event) {
     // Store the API Key
     var APIKey = '465bcfeb692bbbf6355282da448dc2af';
     // Store the Users Input into a City var
-    var city = userInputValue;
+    var cityName = userInputValue;
     // Create the URL with the given parameters
-    var queryURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + APIKey + '&units=imperial';
+    var queryURL = 'http://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=' + APIKey + '&units=imperial';
     // FETCH the Weather API with the queryURL
     fetch(queryURL)
         .then(function(response){
@@ -52,6 +52,11 @@ searchButtonEl.addEventListener('click', function(event) {
             // ELSE
             else
             {
+                // Grab the Weather Dashboard element ID
+                var weatherDashboardEl = document.getElementById('weather-dashboard');
+                // Display the Weather Dashboard
+                weatherDashboardEl.style.display = 'flex';
+
                 // Create the City Button element ID
                 var cityButtonEl = document.createElement('BUTTON');
                 // Attach element ID called "city-btn"
@@ -61,12 +66,12 @@ searchButtonEl.addEventListener('click', function(event) {
                 // Attach cityButtonEl into the document body
                 searchMenuEl.appendChild(cityButtonEl);
                 // Display the Users Input
-                cityButtonEl.innerHTML = data.name;
+                cityButtonEl.innerHTML = data.city.name;
 
                 // Grab the Weather Img element ID
                 var weatherImgEl = document.getElementById('weather-img');
                 // Save the city's current weather icon code
-                var iconCode = data.weather[0].icon;
+                var iconCode = data.list[0].weather[0].icon;
                 // Create the img url
                 var iconUrl = 'https://openweathermap.org/img/wn/'+ iconCode +'@2x.png';
 
@@ -84,7 +89,7 @@ searchButtonEl.addEventListener('click', function(event) {
                 humidityEl.innerHTML = '';
 
                 // Insert NEW City Name and Date !!! data.weather[0].icon
-                cityNameEl.innerHTML = data.name + ' (' + month + '/' + day + '/' + year + ') ';
+                cityNameEl.innerHTML = data.city.name + ' (' + month + '/' + day + '/' + year + ') ';
 
                 // Add the src attribute to Weather Img
                 weatherImgEl.setAttribute('src', iconUrl);
@@ -92,17 +97,22 @@ searchButtonEl.addEventListener('click', function(event) {
                 weatherImgEl.style.display = 'flex';
 
                 // Insert NEW Temperature data
-                temperatureEl.innerHTML = 'Temp: ' + temperatureEl.textContent + data.main.temp + '°F';
+                temperatureEl.innerHTML = 'Temp: ' + temperatureEl.textContent + data.list[0].main.temp + '°F';
                 // Insert NEW Wind data
-                windEl.innerHTML = 'Wind: ' + windEl.textContent + data.wind.speed + ' MPH';
+                windEl.innerHTML = 'Wind: ' + windEl.textContent + data.list[0].wind.speed + ' MPH';
                 // Insert NEW Humidity data
-                humidityEl.innerHTML = 'Humidity: ' + humidityEl.textContent + data.main.humidity +' %';
+                humidityEl.innerHTML = 'Humidity: ' + humidityEl.textContent + data.list[0].main.humidity +' %';
+
+                for (var i = 0; i < 6; i++)
+                {
+                    console.log(i);
+                }
             }
 
             // When the User CLICKS any City Button they previously searched
             cityButtonEl.addEventListener('click', function(event) {
                 // Use the Current Name on the Button and Save it to the City var
-                city = cityButtonEl.innerHTML;
+                cityName = cityButtonEl.innerHTML;
                 // FETCH the Weather API with the queryURL
                 fetch(queryURL)
                     .then(function(response){
@@ -113,7 +123,7 @@ searchButtonEl.addEventListener('click', function(event) {
                         console.log(data);
 
                         // Save the city's current weather icon code
-                        iconCode = data.weather[0].icon;
+                        iconCode = data.list[0].weather[0].icon;
                         // Create the img url
                         iconUrl = 'https://openweathermap.org/img/wn/'+ iconCode +'@2x.png';
 
@@ -131,17 +141,17 @@ searchButtonEl.addEventListener('click', function(event) {
                         humidityEl.innerHTML = '';
 
                         // Insert NEW City Name and Date
-                        cityNameEl.innerHTML = data.name + ' (' + month + '/' + day + '/' + year + ')';
+                        cityNameEl.innerHTML = data.city.name + ' (' + month + '/' + day + '/' + year + ')';
 
                         // Add the src attribute to Weather Img
                         weatherImgEl.setAttribute('src', iconUrl);
 
                         // Insert NEW Temperature data
-                        temperatureEl.innerHTML = 'Temp: ' + temperatureEl.textContent + data.main.temp + '°F';
+                        temperatureEl.innerHTML = 'Temp: ' + temperatureEl.textContent + data.list[0].main.temp + '°F';
                         // Insert NEW Wind data
-                        windEl.innerHTML = 'Wind: ' + windEl.textContent + data.wind.speed + ' MPH';
+                        windEl.innerHTML = 'Wind: ' + windEl.textContent + data.list[0].wind.speed + ' MPH';
                         // Insert NEW Humidity data
-                        humidityEl.innerHTML = 'Humidity: ' + humidityEl.textContent + data.main.humidity +' %';
+                        humidityEl.innerHTML = 'Humidity: ' + humidityEl.textContent + data.list[0].main.humidity +' %';
                     });
             })
         });
