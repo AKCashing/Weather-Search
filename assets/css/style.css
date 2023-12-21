@@ -84,8 +84,9 @@ input {
 }
 
 /* LINE Size and Styling */
-.line {
+#line {
     width: 300px;
+    display: none;
     margin-bottom: 15px;
     border: 0;
     border-top: 2px solid #ccc;
@@ -100,13 +101,12 @@ input {
 
 /* WEATHER DASHBOARD Display, Size, and Styling */
 #weather-dashboard {
-    width: 500px;
+    width: 1120px;
     height: 175px;
     display: none;
     flex-direction: column;
     padding-left: 5px;
     margin-left: 10px;
-    margin-right: 10px;
     border: 2px solid black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-image: linear-gradient(to right, #E4EfE9, #93A5CF);
@@ -148,31 +148,66 @@ input {
     font-size: 20px;
 }
 
+/* FORECAST DASHBOARD Display */
 #forecast-dashboard {
     margin-left: 10px;
-    margin-right: 10px;
 }
 
+/* FORECAST TITLE Size and Styling */
 #forecast-title {
     width: 300px;
+    display: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     font-size: 40px;
 }
 
+/* FORECAST CARD LIST Display */
+#forecast-card-list {
+    display: flex;
+}
+
+/* FORECAST CARD Display, Size, and Styling*/
 #forecast-card {
     width: 200px;
     height: 250px;
     display: flex;
     flex-direction: column;
     padding-left: 5px;
+    margin-right: 30px;
     border: 2px solid black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #616873;
+    color: white;
+}
+
+/* FORECAST DATE Display and Styling */
+#forecast-date {
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+/* FORECAST IMG Display and Size */
+#forecast-img {
+    width: 49px;
+    height: 49px;
+    margin-bottom: 15px;
+}
+
+/* FORECAST TEMPERATURE Display and Styling */
+#forecast-temperature {
+    margin-bottom: 15px;
     font-size: 20px;
 }
 
-#forecast-date {
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-size: 30px;
+/* FORECAST WIND Display and Styling */
+#forecast-wind {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+/* FORECAST HUMIDITY Styling */
+#forecast-humidity {
+    font-size: 20px;
 }
